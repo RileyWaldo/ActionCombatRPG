@@ -6,11 +6,13 @@ extends CharacterBody3D
 @export var mouseSensitivity := 0.0014
 @export var minMouseBoundary := -60.0
 @export var maxMouseBoundary := 10.0
+@export var animationDecay := 20.0
 
 var mouseLook := Vector2.ZERO
 
 @onready var horizontalPivot: Node3D = $HorizontalPivot
 @onready var verticalPivot: Node3D = $HorizontalPivot/VerticalPivot
+@onready var rigPivot: Node3D = $RigPivot
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -31,6 +33,7 @@ func _physics_process(delta: float) -> void:
 	if(direction):
 		velocity.x = direction.x * moveSpeed
 		velocity.z = direction.z * moveSpeed
+		LookTowardDirection(direction, delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, moveSpeed)
 		velocity.z = move_toward(velocity.z, 0, moveSpeed)
@@ -64,3 +67,12 @@ func MoveCamera() -> void:
 func GetMovementDirection() -> Vector3:
 	var inputVector := Input.get_vector("moveLeft", "moveRight", "moveForward", "moveBackward")
 	return horizontalPivot.global_transform.basis * (Vector3(inputVector.x, 0, inputVector.y)).normalized()
+
+func LookTowardDirection(direction: Vector3, delta: float) -> void:
+	var targetTransform := rigPivot.global_transform.looking_at(
+		rigPivot.global_position + direction, Vector3.UP, true
+	)
+
+	rigPivot.global_transform = rigPivot.global_transform.interpolate_with(
+		targetTransform, 1.0 - exp(-animationDecay * delta)
+	)
