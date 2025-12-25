@@ -13,6 +13,8 @@ var mouseLook := Vector2.ZERO
 @onready var horizontalPivot: Node3D = $HorizontalPivot
 @onready var verticalPivot: Node3D = $HorizontalPivot/VerticalPivot
 @onready var rigPivot: Node3D = $RigPivot
+@onready var rig: PlayerRig = $RigPivot/Rig
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -30,6 +32,7 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := GetMovementDirection()
+	rig.UpdateAnimationTree(direction)
 	if(direction):
 		velocity.x = direction.x * moveSpeed
 		velocity.z = direction.z * moveSpeed
@@ -46,6 +49,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			get_tree().quit()
+	
+	if(event.is_action_pressed("click")):
+		SlashAttack()
 		
 	if(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 		if(event is InputEventMouseMotion):
@@ -76,3 +82,7 @@ func LookTowardDirection(direction: Vector3, delta: float) -> void:
 	rigPivot.global_transform = rigPivot.global_transform.interpolate_with(
 		targetTransform, 1.0 - exp(-animationDecay * delta)
 	)
+	
+func SlashAttack() -> void:
+	if(rig.IsIdle()):
+		rig.Travel("Slash")
