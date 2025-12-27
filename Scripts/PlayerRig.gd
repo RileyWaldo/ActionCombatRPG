@@ -6,6 +6,7 @@ class_name PlayerRig
 const runPath: String = "parameters/MoveSpace/blend_position"
 const playBackPath: String = "parameters/playback"
 const moveSpace: String = "MoveSpace"
+const slash: String = "Slash"
 
 var runWeightTarget := -1.0
 
@@ -26,3 +27,6 @@ func Travel(animationName: String) -> void:
 	
 func IsIdle() -> bool:
 	return playBack.get_current_node() == moveSpace
+	
+func IsSlashing() -> bool:
+	return playBack.get_current_node() == slash

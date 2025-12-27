@@ -3,17 +3,20 @@ extends CharacterBody3D
 
 @export var moveSpeed := 5.0
 @export var jumpSpeed := 4.5
+@export var attackMoveSpeed := 3.0
 @export var mouseSensitivity := 0.0014
 @export var minMouseBoundary := -60.0
 @export var maxMouseBoundary := 10.0
 @export var animationDecay := 20.0
 
 var mouseLook := Vector2.ZERO
+var attackDirection := Vector3.ZERO
 
 @onready var horizontalPivot: Node3D = $HorizontalPivot
 @onready var verticalPivot: Node3D = $HorizontalPivot/VerticalPivot
 @onready var rigPivot: Node3D = $RigPivot
 @onready var rig: PlayerRig = $RigPivot/Rig
+@onready var attackCast: RayCast3D = %AttackRayCast
 
 
 func _ready() -> void:
@@ -22,25 +25,17 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	MoveCamera()
 	
-	# Add the gravity.
-	if(!is_on_floor()):
-		velocity += get_gravity() * delta
-
 	# Handle jump.
 	if(Input.is_action_just_pressed("jump") and is_on_floor()):
 		velocity.y = jumpSpeed
 
-	# Get the input direction and handle the movement/deceleration.
 	var direction := GetMovementDirection()
 	rig.UpdateAnimationTree(direction)
-	if(direction):
-		velocity.x = direction.x * moveSpeed
-		velocity.z = direction.z * moveSpeed
-		LookTowardDirection(direction, delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, moveSpeed)
-		velocity.z = move_toward(velocity.z, 0, moveSpeed)
-
+	
+	HandleIdlePhysicsFrame(direction, delta)
+	HandleSlashingPhysicsFrame(delta)
+	HandleGravityPhysicsFrame(delta)
+	
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -83,6 +78,37 @@ func LookTowardDirection(direction: Vector3, delta: float) -> void:
 		targetTransform, 1.0 - exp(-animationDecay * delta)
 	)
 	
+func HandleIdlePhysicsFrame(direction: Vector3, delta: float) -> void:
+	if(!rig.IsIdle()):
+		return
+		
+	if(direction):
+		velocity.x = direction.x * moveSpeed
+		velocity.z = direction.z * moveSpeed
+		LookTowardDirection(direction, delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, moveSpeed)
+		velocity.z = move_toward(velocity.z, 0, moveSpeed)
+	
+func HandleSlashingPhysicsFrame(delta: float) -> void:
+	if(!rig.IsSlashing()):
+		return
+	
+	velocity.x = attackDirection.x * attackMoveSpeed
+	velocity.z = attackDirection.z * attackMoveSpeed
+	LookTowardDirection(attackDirection, delta)
+	attackCast.DealDamage()
+	
+func HandleGravityPhysicsFrame(delta: float) -> void:
+	if(!is_on_floor()):
+		velocity += get_gravity() * delta
+
 func SlashAttack() -> void:
-	if(rig.IsIdle()):
-		rig.Travel("Slash")
+	if(!rig.IsIdle()):
+		return
+	
+	attackCast.clear_exceptions()
+	rig.Travel("Slash")
+	attackDirection = GetMovementDirection()
+	if(attackDirection.is_zero_approx()):
+		attackDirection = rig.global_basis * Vector3(0, 0, 1)
