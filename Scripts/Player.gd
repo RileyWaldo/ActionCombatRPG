@@ -15,7 +15,7 @@ var attackDirection := Vector3.ZERO
 @onready var horizontalPivot: Node3D = $HorizontalPivot
 @onready var verticalPivot: Node3D = $HorizontalPivot/VerticalPivot
 @onready var rigPivot: Node3D = $RigPivot
-@onready var rig: PlayerRig = $RigPivot/Rig
+@onready var rig: Rig = $RigPivot/Rig
 @onready var attackCast: RayCast3D = %AttackRayCast
 
 

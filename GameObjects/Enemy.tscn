@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxotq7qnl2bdn"]
+
+[ext_resource type="Script" uid="uid://bo2e0rl3j1ykr" path="res://Scripts/Enemy.gd" id="1_epw33"]
+[ext_resource type="PackedScene" uid="uid://cl8p71ouiyvu2" path="res://GameObjects/Rig.tscn" id="2_t2g0b"]
+[ext_resource type="PackedScene" uid="uid://j46wqttjmkl4" path="res://GameObjects/CharacterComponents/HealthComponent.tscn" id="3_t2g0b"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfy4x"]
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 9
+script = ExtResource("1_epw33")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_bfy4x")
+
+[node name="Rig" parent="." instance=ExtResource("2_t2g0b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Skeleton3D" parent="Rig/CharacterRig/GameRig" index="0"]
+bones/0/position = Vector3(4.743969e-15, 0.89707184, -0.048173547)
+bones/2/rotation = Quaternion(-0.0018367249, -0.00041599796, 0.0032147758, 0.99999315)
+bones/3/rotation = Quaternion(-0.09648267, -0.00037996416, 0.008520048, 0.9952982)
+bones/4/rotation = Quaternion(0.27711558, 1.5613406e-08, 9.049376e-08, 0.96083665)
+bones/6/rotation = Quaternion(-0.15612513, -1.1781631e-07, -1.8168691e-08, 0.98773736)
+bones/7/position = Vector3(-1.9662307e-08, 0.8970717, -0.048173446)
+bones/8/position = Vector3(-5.3861214e-08, 0.8970718, -0.04817352)
+bones/9/position = Vector3(0.13114366, 0.9632761, -0.03512909)
+bones/9/rotation = Quaternion(0.9929748, 0.02089609, -0.030937716, 0.11228268)
+bones/11/rotation = Quaternion(0.4217643, -0.0007005689, 0.00032602376, 0.90670514)
+bones/13/rotation = Quaternion(-0.7522555, 0.011888016, 0.024407698, 0.658312)
+bones/15/position = Vector3(-0.1311437, 0.9632761, -0.035129108)
+bones/15/rotation = Quaternion(0.9730559, -0.0058087506, 0.027303679, 0.22887377)
+bones/17/rotation = Quaternion(0.4457131, 0.0033002556, -0.0016433441, 0.89516824)
+bones/19/rotation = Quaternion(-0.6888251, -0.028196026, -0.00068929436, 0.7243788)
+bones/21/position = Vector3(0.025128614, 1.4272783, 0.042436678)
+bones/21/rotation = Quaternion(-0.49276972, -0.25821984, -0.40042907, 0.72811884)
+bones/22/position = Vector3(0.18856506, 1.4641701, -0.023651982)
+bones/22/rotation = Quaternion(0.049439646, -0.15975702, 0.97446305, -0.14985137)
+bones/23/rotation = Quaternion(6.94813e-08, -0.016298724, 6.250337e-08, 0.9998672)
+bones/24/rotation = Quaternion(0.29979664, -0.016299425, -0.018349277, 0.9536874)
+bones/46/position = Vector3(-0.011363527, 1.4272783, 0.042436663)
+bones/46/rotation = Quaternion(-0.5112456, 0.2205205, 0.37468144, 0.7413585)
+bones/47/position = Vector3(-0.16717502, 1.4646192, -0.039825425)
+bones/47/rotation = Quaternion(-0.0752002, -0.13684988, 0.9732121, 0.16874623)
+bones/48/rotation = Quaternion(8.1504176e-08, 0.013593904, 8.7585335e-08, 0.9999077)
+bones/49/rotation = Quaternion(0.3327736, 0.013594398, 0.028957678, 0.94246405)
+bones/71/position = Vector3(0.12719111, 1.3457494, -0.026333805)
+bones/71/rotation = Quaternion(1.9325759e-08, 0.6127956, 0.79024154, -4.6409216e-08)
+bones/72/position = Vector3(-0.113425955, 1.3457494, -0.026333831)
+bones/72/rotation = Quaternion(1.932582e-08, 0.6127956, 0.79024154, -4.640916e-08)
+
+[node name="Knight_02" parent="Rig/CharacterRig/GameRig/Skeleton3D" index="1"]
+visible = false
+
+[node name="Villager_02" parent="Rig/CharacterRig/GameRig/Skeleton3D" index="3"]
+visible = true
+
+[node name="RightHandBone" parent="Rig" index="2"]
+transform = Transform3D(-0.9623423, -0.27080417, -0.023712426, 0.24066779, -0.88929963, 0.388877, -0.12639697, 0.36852613, 0.92098427, -0.3409922, 0.98315036, -0.028224237)
+
+[node name="LeftHandBone" parent="Rig" index="3"]
+transform = Transform3D(-0.9705133, 0.23910825, 0.030521112, -0.22134593, -0.9341511, 0.2799425, 0.09544794, 0.26493225, 0.95953125, 0.3453755, 0.97094303, -0.047656827)
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_t2g0b")]
+
+[connection signal="defeat" from="HealthComponent" to="." method="OnDefeat"]
+
+[editable path="Rig"]
+[editable path="Rig/CharacterRig"]
