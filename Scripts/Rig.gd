@@ -1,12 +1,15 @@
 extends Node3D
 class_name Rig
 
+signal heavyAttack
+
 @export var animationSpeed := 10.0
 
 const runPath: String = "parameters/MoveSpace/blend_position"
 const playBackPath: String = "parameters/playback"
-const moveSpace: String = "MoveSpace"
-const slash: String = "Slash"
+const MOVESPACE: String = "MoveSpace"
+const SLASH: String = "Slash"
+const OVERHEAD: String = "Overhead"
 
 var runWeightTarget := -1.0
 
@@ -27,13 +30,20 @@ func Travel(animationName: String) -> void:
 	playBack.travel(animationName)
 	
 func IsIdle() -> bool:
-	return playBack.get_current_node() == moveSpace
+	return playBack.get_current_node() == MOVESPACE
 	
 func IsSlashing() -> bool:
-	return playBack.get_current_node() == slash
+	return playBack.get_current_node() == SLASH
+	
+func IsOverhead() -> bool:
+	return playBack.get_current_node() == OVERHEAD
 	
 func SetRigCharacterMesh(mesh: Node3D) -> void:
 	for child in skeleton.get_children():
 		child.visible = false
 		
 	mesh.visible = true
+
+func _on_animation_tree_animation_finished(animName: StringName) -> void:
+	if(animName == OVERHEAD):
+		heavyAttack.emit()

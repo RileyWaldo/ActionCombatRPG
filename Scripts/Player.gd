@@ -1,6 +1,7 @@
 extends CharacterBody3D
+class_name Player
 
-
+@export var maxHealth := 30.0
 @export var moveSpeed := 5.0
 @export var jumpSpeed := 4.5
 @export var attackMoveSpeed := 3.0
@@ -17,9 +18,13 @@ var attackDirection := Vector3.ZERO
 @onready var rigPivot: Node3D = $RigPivot
 @onready var rig: Rig = $RigPivot/Rig
 @onready var attackCast: RayCast3D = %AttackRayCast
+@onready var healthComponent: HealthComponent = $HealthComponent
+@onready var collisionShape: CollisionShape3D = $CollisionShape3D
+@onready var areaAttack: AreaAttack = $RigPivot/AreaAttack
 
 
 func _ready() -> void:
+	healthComponent.UpdateMaxHealth(maxHealth)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
@@ -34,6 +39,7 @@ func _physics_process(delta: float) -> void:
 	
 	HandleIdlePhysicsFrame(direction, delta)
 	HandleSlashingPhysicsFrame(delta)
+	HandleOverheadPhysicsFrame(delta)
 	HandleGravityPhysicsFrame(delta)
 	
 	move_and_slide()
@@ -45,8 +51,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			get_tree().quit()
 	
-	if(event.is_action_pressed("click")):
+	if(event.is_action_pressed("leftClick")):
 		SlashAttack()
+	elif(event.is_action_pressed("rightClick")):
+		HeavyAttack()
 		
 	if(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 		if(event is InputEventMouseMotion):
@@ -99,6 +107,13 @@ func HandleSlashingPhysicsFrame(delta: float) -> void:
 	LookTowardDirection(attackDirection, delta)
 	attackCast.DealDamage()
 	
+func HandleOverheadPhysicsFrame(delta: float) -> void:
+	if(!rig.IsOverhead()):
+		return
+		
+	velocity.x = move_toward(velocity.x, 0, moveSpeed * delta)
+	velocity.z = move_toward(velocity.z, 0, moveSpeed * delta)
+	
 func HandleGravityPhysicsFrame(delta: float) -> void:
 	if(!is_on_floor()):
 		velocity += get_gravity() * delta
@@ -112,3 +127,18 @@ func SlashAttack() -> void:
 	attackDirection = GetMovementDirection()
 	if(attackDirection.is_zero_approx()):
 		attackDirection = rig.global_basis * Vector3(0, 0, 1)
+
+func HeavyAttack() -> void:
+	if(!rig.IsIdle()):
+		return
+		
+	rig.Travel("Overhead")
+
+func OnDefeat() -> void:
+	rig.Travel("Defeat")
+	collisionShape.disabled = true
+	set_physics_process(false)
+
+
+func OnHeavyAttack() -> void:
+	areaAttack.DealDamage(50.0)
