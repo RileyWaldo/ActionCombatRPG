@@ -28,7 +28,7 @@ var nextLevel: int
 var xp := 0:
 	set(value):
 		xp = value
-		print("XP: " + str(xp) + "/" + str(nextLevel))
+
 		while(xp >= nextLevel):
 			xp -= nextLevel
 			LevelUp()

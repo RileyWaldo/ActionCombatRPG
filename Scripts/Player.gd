@@ -4,7 +4,7 @@ class_name Player
 @export var stats: CharacterStats
 @export var maxHealth := 30.0
 @export_category("Player Tuning")
-@export var moveSpeed := 5.0
+@export var baseDamage := 10.0
 @export var moveDecay := 8.0
 @export var jumpSpeed := 4.5
 @export var attackMoveSpeed := 3.0
@@ -16,6 +16,9 @@ class_name Player
 
 var mouseLook := Vector2.ZERO
 var attackDirection := Vector3.ZERO
+var moveSpeed: float:
+	get():
+		return stats.GetBaseSpeed()
 
 @onready var horizontalPivot: Node3D = $HorizontalPivot
 @onready var verticalPivot: Node3D = $HorizontalPivot/VerticalPivot
@@ -59,6 +62,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		SlashAttack()
 	elif(event.is_action_pressed("rightClick")):
 		HeavyAttack()
+	elif(event.is_action_pressed("debugGainXP")):
+		stats.xp += 10000
 		
 	if(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 		if(event is InputEventMouseMotion):
@@ -107,7 +112,7 @@ func HandleSlashingPhysicsFrame(delta: float) -> void:
 	velocity.x = attackDirection.x * attackMoveSpeed
 	velocity.z = attackDirection.z * attackMoveSpeed
 	LookTowardDirection(attackDirection, delta)
-	attackCast.DealDamage()
+	attackCast.DealDamage(baseDamage + stats.GetDamageModifier(), stats.GetCritChance())
 	
 func HandleOverheadPhysicsFrame(delta: float) -> void:
 	if(!rig.IsOverhead()):
@@ -143,7 +148,7 @@ func OnDefeat() -> void:
 
 
 func OnHeavyAttack() -> void:
-	areaAttack.DealDamage(50.0)
+	areaAttack.DealDamage(baseDamage + stats.GetDamageModifier(), stats.GetCritChance())
 
 func ExponentialDecay(a: float, b: float, decay: float, delta: float) -> float:
 	return b + (a - b) * exp(-decay * delta)

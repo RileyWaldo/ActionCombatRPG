@@ -16,7 +16,9 @@ func UpdateMaxHealth(maxHp: float) -> void:
 	maxHealth = maxHp
 	health = maxHealth
 	
-func TakeDamage(damage: float) -> void:
+func TakeDamage(damage: float, isCrit: bool) -> void:
+	if(isCrit):
+		damage *= 2
 	health -= damage
 	
 func IsDead() -> bool:

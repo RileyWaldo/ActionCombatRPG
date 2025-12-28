@@ -3,6 +3,7 @@ class_name Enemy
 
 @export var maxHealth := 20.0
 @export var xpGain := 20
+@export var critRate := 0.05
 
 @onready var healthComponent: HealthComponent = $HealthComponent
 @onready var rig: Rig = $Rig
@@ -38,4 +39,4 @@ func OnDefeat() -> void:
 
 
 func OnHeavyAttack() -> void:
-	areaAttack.DealDamage(20.0)
+	areaAttack.DealDamage(20.0, critRate)
