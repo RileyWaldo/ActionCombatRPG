@@ -10,6 +10,8 @@ const playBackPath: String = "parameters/playback"
 const MOVESPACE: String = "MoveSpace"
 const SLASH: String = "Slash"
 const OVERHEAD: String = "Overhead"
+const OVERHEADSTATES: Array[String] = [OVERHEAD, "OverheadRecover"]
+const DASH: String = "Dash"
 
 var runWeightTarget := -1.0
 
@@ -36,7 +38,10 @@ func IsSlashing() -> bool:
 	return playBack.get_current_node() == SLASH
 	
 func IsOverhead() -> bool:
-	return playBack.get_current_node() == OVERHEAD
+	return playBack.get_current_node() in OVERHEADSTATES
+	
+func IsDashing() -> bool:
+	return playBack.get_current_node() == DASH
 	
 func SetRigCharacterMesh(mesh: Node3D) -> void:
 	for child in skeleton.get_children():

@@ -3,6 +3,7 @@ class_name Player
 
 @export var maxHealth := 30.0
 @export var moveSpeed := 5.0
+@export var moveDecay := 8.0
 @export var jumpSpeed := 4.5
 @export var attackMoveSpeed := 3.0
 @export var mouseSensitivity := 0.0014
@@ -87,16 +88,14 @@ func LookTowardDirection(direction: Vector3, delta: float) -> void:
 	)
 	
 func HandleIdlePhysicsFrame(direction: Vector3, delta: float) -> void:
-	if(!rig.IsIdle()):
+	if(!rig.IsIdle() and !rig.IsDashing()):
 		return
 		
+	velocity.x = ExponentialDecay(velocity.x, direction.x * moveSpeed, moveDecay, delta)
+	velocity.z = ExponentialDecay(velocity.z, direction.z * moveSpeed, moveDecay, delta)
+		
 	if(direction):
-		velocity.x = direction.x * moveSpeed
-		velocity.z = direction.z * moveSpeed
 		LookTowardDirection(direction, delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, moveSpeed)
-		velocity.z = move_toward(velocity.z, 0, moveSpeed)
 	
 func HandleSlashingPhysicsFrame(delta: float) -> void:
 	if(!rig.IsSlashing()):
@@ -142,3 +141,6 @@ func OnDefeat() -> void:
 
 func OnHeavyAttack() -> void:
 	areaAttack.DealDamage(50.0)
+
+func ExponentialDecay(a: float, b: float, decay: float, delta: float) -> float:
+	return b + (a - b) * exp(-decay * delta)

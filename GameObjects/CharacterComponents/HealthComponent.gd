@@ -18,3 +18,6 @@ func UpdateMaxHealth(maxHp: float) -> void:
 	
 func TakeDamage(damage: float) -> void:
 	health -= damage
+	
+func IsDead() -> bool:
+	return is_zero_approx(health)
