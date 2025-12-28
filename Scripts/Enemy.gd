@@ -2,12 +2,14 @@ extends CharacterBody3D
 class_name Enemy
 
 @export var maxHealth := 20.0
+@export var xpGain := 20
 
 @onready var healthComponent: HealthComponent = $HealthComponent
 @onready var rig: Rig = $Rig
 @onready var collisionShape: CollisionShape3D = $CollisionShape3D
 @onready var playerDetector: ShapeCast3D = $Rig/PlayerDetector
 @onready var areaAttack: AreaAttack = $Rig/AreaAttack
+@onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var meshes: Array[Node3D] = [
 	$Rig/CharacterRig/GameRig/Skeleton3D/Villager_01,
 	$Rig/CharacterRig/GameRig/Skeleton3D/Villager_02
@@ -29,6 +31,7 @@ func CheckForAttacks() -> void:
 			rig.Travel("Overhead")
 
 func OnDefeat() -> void:
+	player.stats.xp += xpGain
 	rig.Travel("Defeat")
 	collisionShape.disabled = true
 	set_physics_process(false)

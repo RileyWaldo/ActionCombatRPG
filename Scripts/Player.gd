@@ -1,15 +1,18 @@
 extends CharacterBody3D
 class_name Player
 
+@export var stats: CharacterStats
 @export var maxHealth := 30.0
+@export_category("Player Tuning")
 @export var moveSpeed := 5.0
 @export var moveDecay := 8.0
 @export var jumpSpeed := 4.5
 @export var attackMoveSpeed := 3.0
+@export var animationDecay := 20.0
+@export_category("Camera Tuning")
 @export var mouseSensitivity := 0.0014
 @export var minMouseBoundary := -60.0
 @export var maxMouseBoundary := 10.0
-@export var animationDecay := 20.0
 
 var mouseLook := Vector2.ZERO
 var attackDirection := Vector3.ZERO
