@@ -2,7 +2,6 @@ extends CharacterBody3D
 class_name Player
 
 @export var stats: CharacterStats
-@export var maxHealth := 30.0
 @export_category("Player Tuning")
 @export var baseDamage := 10.0
 @export var moveDecay := 8.0
@@ -31,7 +30,8 @@ var moveSpeed: float:
 
 
 func _ready() -> void:
-	healthComponent.UpdateMaxHealth(maxHealth)
+	stats.levelUpNotification.connect(func(): healthComponent.UpdateMaxHealth(stats.GetMaxHP()))
+	healthComponent.UpdateMaxHealth(stats.GetMaxHP())
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:

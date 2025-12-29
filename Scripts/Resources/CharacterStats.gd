@@ -1,6 +1,8 @@
 extends Resource
 class_name CharacterStats
 
+signal levelUpNotification
+
 class Ability:
 	
 	var minModifier: float
@@ -34,6 +36,9 @@ var xp := 0:
 			LevelUp()
 			nextLevel = PercentageLevelUpBoundary()
 
+const MIN_DASH_COOLDOWN := 1.5
+const MAX_DASH_COOLDOWN := 0.5
+
 #Damage bonus on attack
 var strength := Ability.new(2.0, 12.0)
 #Movement speed in m/s
@@ -55,13 +60,19 @@ func GetDamageModifier() -> float:
 func GetCritChance() -> float:
 	return agility.GetModifier()
 	
+func GetMaxHP() -> int:
+	return 20 + int(level * endurance.GetModifier())
+	
+func GetDashCooldown() -> float:
+	return agility.PercentileLerp(MIN_DASH_COOLDOWN, MAX_DASH_COOLDOWN)
+	
 func LevelUp() -> void:
 	level += 1
 	strength.Increase()
 	speed.Increase()
 	endurance.Increase()
 	agility.Increase()
-	printt("Level Up!!", level)
+	levelUpNotification.emit()
 
 	
 func PercentageLevelUpBoundary() -> int:

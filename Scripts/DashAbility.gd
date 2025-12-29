@@ -2,7 +2,6 @@ extends Node3D
 
 @export var player: Player
 @export var dashSpeedMultiplier := 3.0
-@export var cooldownTime := 1.0
 
 @onready var cooldownTimer: Timer = $CooldownTimer
 @onready var dashParticles: GPUParticles3D = $GPUParticles3D
@@ -38,6 +37,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 			
 	player.rig.Travel("Dash")
-	cooldownTimer.start(cooldownTime)
+	cooldownTimer.start(player.stats.GetDashCooldown())
 	timeRemaining = dashDuration
 	dashParticles.emitting = true
