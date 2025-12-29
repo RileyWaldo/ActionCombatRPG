@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq2eany5baslr"]
+
+[ext_resource type="Script" uid="uid://bh7n6rgi70mbu" path="res://UserInterface/Inventory.gd" id="1_anlfx"]
+[ext_resource type="Texture2D" uid="uid://dgfl7yg3f5dr8" path="res://Assets/UIAssets/Window/window_header.png" id="1_cp2py"]
+[ext_resource type="FontFile" uid="uid://dsanfoi6y78xx" path="res://Assets/Fonts/Libre_Caslon_Text/LibreCaslonText-Bold.ttf" id="2_anlfx"]
+
+[sub_resource type="Gradient" id="Gradient_24qjg"]
+offsets = PackedFloat32Array(0, 0.8, 0.9)
+colors = PackedColorArray(0.1254902, 0.08627451, 0.11372549, 1, 0.67058825, 0.1764706, 0.16470589, 1, 0.6627451, 0.41960785, 0.2, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_swtlf"]
+gradient = SubResource("Gradient_24qjg")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h3l13"]
+font = ExtResource("2_anlfx")
+font_size = 64
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_anlfx")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_swtlf")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderTexture" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_cp2py")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HeaderTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inventory"
+label_settings = SubResource("LabelSettings_h3l13")
+horizontal_alignment = 1
+vertical_alignment = 1

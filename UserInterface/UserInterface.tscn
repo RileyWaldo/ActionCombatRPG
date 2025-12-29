@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpwnycl70q758"]
+[gd_scene load_steps=10 format=3 uid="uid://dpwnycl70q758"]
 
 [ext_resource type="Script" uid="uid://lgawwme408up" path="res://UserInterface/UserInterface.gd" id="1_r6oiv"]
 [ext_resource type="Texture2D" uid="uid://cxr4r626ee1qt" path="res://Assets/UIAssets/Unitframe/HealthBarUnder.png" id="1_yseya"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cuxbvkxkk4ggk" path="res://Assets/UIAssets/Unitframe/MainBar.png" id="3_co5mk"]
 [ext_resource type="FontFile" uid="uid://dsanfoi6y78xx" path="res://Assets/Fonts/Libre_Caslon_Text/LibreCaslonText-Bold.ttf" id="3_te54r"]
 [ext_resource type="Texture2D" uid="uid://wjejsac74mq1" path="res://Assets/UIAssets/Unitframe/BlueBar.png" id="4_apued"]
+[ext_resource type="PackedScene" uid="uid://bq2eany5baslr" path="res://UserInterface/Inventory.tscn" id="7_apued"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_co5mk"]
 font = ExtResource("3_te54r")
@@ -101,3 +102,7 @@ text = "99"
 label_settings = SubResource("LabelSettings_r6oiv")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Inventory" parent="." instance=ExtResource("7_apued")]
+visible = false
+layout_mode = 1
