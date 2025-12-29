@@ -18,6 +18,9 @@ func UpdateMaxHealth(maxHp: float) -> void:
 	maxHealth = maxHp
 	health = maxHealth
 	
+func GetHealthString() -> String:
+	return "%s/%s" % [int(health), int(maxHealth)]
+	
 func TakeDamage(damage: float, isCrit: bool) -> void:
 	var color := Color.WHITE
 	if(isCrit):

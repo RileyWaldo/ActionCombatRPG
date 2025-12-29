@@ -1,9 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpwnycl70q758"]
+[gd_scene load_steps=9 format=3 uid="uid://dpwnycl70q758"]
 
 [ext_resource type="Script" uid="uid://lgawwme408up" path="res://UserInterface/UserInterface.gd" id="1_r6oiv"]
 [ext_resource type="Texture2D" uid="uid://cxr4r626ee1qt" path="res://Assets/UIAssets/Unitframe/HealthBarUnder.png" id="1_yseya"]
 [ext_resource type="Texture2D" uid="uid://d20kmxycc7nwa" path="res://Assets/UIAssets/Unitframe/HealthBarOver.png" id="2_te54r"]
+[ext_resource type="Texture2D" uid="uid://cuxbvkxkk4ggk" path="res://Assets/UIAssets/Unitframe/MainBar.png" id="3_co5mk"]
 [ext_resource type="FontFile" uid="uid://dsanfoi6y78xx" path="res://Assets/Fonts/Libre_Caslon_Text/LibreCaslonText-Bold.ttf" id="3_te54r"]
+[ext_resource type="Texture2D" uid="uid://wjejsac74mq1" path="res://Assets/UIAssets/Unitframe/BlueBar.png" id="4_apued"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_co5mk"]
+font = ExtResource("3_te54r")
+font_size = 20
+font_color = Color(0.9607843, 0.7176471, 0.42352942, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r6oiv"]
 font = ExtResource("3_te54r")
@@ -42,6 +49,39 @@ layout_mode = 0
 offset_right = 348.0
 offset_bottom = 102.0
 texture = ExtResource("1_yseya")
+
+[node name="Healthbar" type="TextureProgressBar" parent="MarginContainer/InfoBar/HealthbarUnder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+texture_progress = ExtResource("3_co5mk")
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/InfoBar/HealthbarUnder/Healthbar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 93.0
+offset_top = 24.0
+offset_right = 170.0
+offset_bottom = 50.0
+text = "100/100"
+label_settings = SubResource("LabelSettings_co5mk")
+vertical_alignment = 1
+
+[node name="XPBar" type="TextureProgressBar" parent="MarginContainer/InfoBar/HealthbarUnder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+texture_progress = ExtResource("4_apued")
 
 [node name="HealthbarOver" type="TextureRect" parent="MarginContainer/InfoBar"]
 layout_mode = 0
