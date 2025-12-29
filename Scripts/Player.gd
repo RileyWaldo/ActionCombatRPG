@@ -65,8 +65,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		SlashAttack()
 	elif(event.is_action_pressed("rightClick")):
 		HeavyAttack()
-	elif(event.is_action_pressed("openMenu")):
-		userInterface.ToggleMenu()
 	elif(event.is_action_pressed("debugGainXP")):
 		stats.xp += 10000
 		
