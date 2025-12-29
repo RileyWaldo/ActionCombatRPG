@@ -2,6 +2,7 @@ extends Resource
 class_name CharacterStats
 
 signal levelUpNotification
+signal updateStats
 
 class Ability:
 	
@@ -35,6 +36,8 @@ var xp := 0:
 			xp -= nextLevel
 			LevelUp()
 			nextLevel = PercentageLevelUpBoundary()
+			
+		updateStats.emit()
 
 const MIN_DASH_COOLDOWN := 1.5
 const MAX_DASH_COOLDOWN := 0.5

@@ -27,12 +27,15 @@ var moveSpeed: float:
 @onready var healthComponent: HealthComponent = $HealthComponent
 @onready var collisionShape: CollisionShape3D = $CollisionShape3D
 @onready var areaAttack: AreaAttack = $RigPivot/AreaAttack
+@onready var userInterface: UserInterface = $UserInterface
 
 
 func _ready() -> void:
 	stats.levelUpNotification.connect(func(): healthComponent.UpdateMaxHealth(stats.GetMaxHP()))
 	healthComponent.UpdateMaxHealth(stats.GetMaxHP())
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	stats.updateStats.connect(userInterface.UpdateStatsDisplay)
+	userInterface.UpdateStatsDisplay()
 
 func _physics_process(delta: float) -> void:
 	MoveCamera()

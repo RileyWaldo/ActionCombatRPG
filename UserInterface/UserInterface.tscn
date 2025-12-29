@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpwnycl70q758"]
+[gd_scene load_steps=6 format=3 uid="uid://dpwnycl70q758"]
 
+[ext_resource type="Script" uid="uid://lgawwme408up" path="res://UserInterface/UserInterface.gd" id="1_r6oiv"]
 [ext_resource type="Texture2D" uid="uid://cxr4r626ee1qt" path="res://Assets/UIAssets/Unitframe/HealthBarUnder.png" id="1_yseya"]
 [ext_resource type="Texture2D" uid="uid://d20kmxycc7nwa" path="res://Assets/UIAssets/Unitframe/HealthBarOver.png" id="2_te54r"]
+[ext_resource type="FontFile" uid="uid://dsanfoi6y78xx" path="res://Assets/Fonts/Libre_Caslon_Text/LibreCaslonText-Bold.ttf" id="3_te54r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r6oiv"]
+font = ExtResource("3_te54r")
+font_size = 26
+font_color = Color(0.9607843, 0.7176471, 0.42352942, 1)
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -11,6 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_r6oiv")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -31,12 +39,25 @@ mouse_filter = 2
 
 [node name="HealthbarUnder" type="TextureRect" parent="MarginContainer/InfoBar"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 348.0
+offset_bottom = 102.0
 texture = ExtResource("1_yseya")
 
 [node name="HealthbarOver" type="TextureRect" parent="MarginContainer/InfoBar"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 348.0
+offset_bottom = 102.0
 texture = ExtResource("2_te54r")
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/InfoBar/HealthbarOver"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_vertical = 2
+text = "99"
+label_settings = SubResource("LabelSettings_r6oiv")
+horizontal_alignment = 1
+vertical_alignment = 1
