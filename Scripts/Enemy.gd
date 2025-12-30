@@ -5,6 +5,9 @@ class_name Enemy
 @export var moveSpeed := 5.0
 @export var xpGain := 20
 @export var critRate := 0.05
+@export var provokDistance := 6.0
+@export var weapons: Array[PackedScene]
+@export var shields: Array[PackedScene]
 
 @onready var healthComponent: HealthComponent = $HealthComponent
 @onready var navigationAgent: NavigationAgent3D = $NavigationAgent3D
@@ -21,13 +24,23 @@ class_name Enemy
 const RUN_VELOCITY_THRESHOLD: float = 2.0
 
 var velocityTarget := Vector3.ZERO
+var provoked := false
 
 func _ready() -> void:
 	rig.SetRigCharacterMesh(meshes.pick_random())
+	rig.ReplaceShield(shields.pick_random())
+	rig.ReplaceWeapon(weapons.pick_random())
 	healthComponent.UpdateMaxHealth(maxHealth)
 	
 
 func _physics_process(delta: float) -> void:
+	if(!provoked):
+		rig.runWeightTarget = -1.0
+		var distanceToPlayer := global_position - player.global_position
+		if(distanceToPlayer.length_squared() <= pow(provokDistance, 2)):
+			provoked = true
+		return
+	
 	navigationAgent.target_position = player.global_position
 	
 	if(is_on_floor()):
@@ -67,6 +80,8 @@ func OnDefeat() -> void:
 	rig.Travel("Defeat")
 	collisionShape.disabled = true
 	set_physics_process(false)
+	navigationAgent.target_position = global_position
+	navigationAgent.velocity = Vector3.ZERO
 
 
 func OnHeavyAttack() -> void:

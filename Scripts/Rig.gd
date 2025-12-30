@@ -18,6 +18,8 @@ var runWeightTarget := -1.0
 @onready var animationTree: AnimationTree = $AnimationTree
 @onready var playBack: AnimationNodeStateMachinePlayback = animationTree[playBackPath]
 @onready var skeleton: Skeleton3D = $CharacterRig/GameRig/Skeleton3D
+@onready var weaponSlot: Node3D = %WeaponSlot
+@onready var shieldSlot: Node3D = %ShieldSlot
 
 func _physics_process(delta: float) -> void:
 	animationTree[runPath] = move_toward(animationTree[runPath], runWeightTarget, delta * animationSpeed)
@@ -48,6 +50,20 @@ func SetRigCharacterMesh(mesh: Node3D) -> void:
 		child.visible = false
 		
 	mesh.visible = true
+	
+func ReplaceShield(shieldScene: PackedScene) -> void:
+	for child in shieldSlot.get_children():
+		child.queue_free()
+		
+	var newShield := shieldScene.instantiate()
+	shieldSlot.add_child(newShield)
+	
+func ReplaceWeapon(weaponScene: PackedScene) -> void:
+	for child in weaponSlot.get_children():
+		child.queue_free()
+		
+	var newWeapon := weaponScene.instantiate()
+	weaponSlot.add_child(newWeapon)
 
 func _on_animation_tree_animation_finished(animName: StringName) -> void:
 	if(animName == OVERHEAD):
