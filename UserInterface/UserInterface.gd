@@ -8,6 +8,9 @@ class_name UserInterface
 @onready var xpBar: TextureProgressBar = %XPBar
 @onready var healthLabel: Label = %HealthLabel
 @onready var inventory: Inventory = $Inventory
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var interactLabel: Label = %InteractLabel
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if(event.is_action_pressed("openMenu")):
@@ -33,3 +36,8 @@ func ToggleMenu() -> void:
 		inventory.UpdateGearStats()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func InteractText(text: String) -> void:
+	animationPlayer.stop()
+	animationPlayer.play("FadeOutText")
+	interactLabel.text = text

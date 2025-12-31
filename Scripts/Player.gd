@@ -27,6 +27,7 @@ var moveSpeed: float:
 @onready var healthComponent: HealthComponent = $HealthComponent
 @onready var collisionShape: CollisionShape3D = $CollisionShape3D
 @onready var areaAttack: AreaAttack = $RigPivot/AreaAttack
+@onready var interactionCast: InteractionCast = $RigPivot/InteractionCast
 @onready var userInterface: UserInterface = $UserInterface
 
 
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	HandleSlashingPhysicsFrame(delta)
 	HandleOverheadPhysicsFrame(delta)
 	HandleGravityPhysicsFrame(delta)
+	interactionCast.CheckInteractions()
 	
 	move_and_slide()
 

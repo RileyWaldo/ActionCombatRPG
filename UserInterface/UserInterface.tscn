@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpwnycl70q758"]
+[gd_scene load_steps=16 format=3 uid="uid://dpwnycl70q758"]
 
 [ext_resource type="Script" uid="uid://lgawwme408up" path="res://UserInterface/UserInterface.gd" id="1_r6oiv"]
 [ext_resource type="Texture2D" uid="uid://cxr4r626ee1qt" path="res://Assets/UIAssets/Unitframe/HealthBarUnder.png" id="1_yseya"]
@@ -18,6 +18,84 @@ font = ExtResource("3_te54r")
 font_size = 26
 font_color = Color(0.9607843, 0.7176471, 0.42352942, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_apued"]
+font = ExtResource("3_te54r")
+font_size = 24
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_oh8mj"]
+color = Color(1, 1, 1, 1)
+thickness = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_fsra1"]
+font = ExtResource("3_te54r")
+font_size = 36
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+
+[sub_resource type="Animation" id="Animation_apued"]
+resource_name = "FadeOutText"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/InteractContainer:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/InteractContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oh8mj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/InteractContainer:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/InteractContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fsra1"]
+_data = {
+&"FadeOutText": SubResource("Animation_apued"),
+&"RESET": SubResource("Animation_oh8mj")
+}
+
 [node name="UserInterface" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -29,7 +107,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_r6oiv")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="HUD" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,17 +120,17 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="InfoBar" type="Control" parent="MarginContainer"]
+[node name="InfoBar" type="Control" parent="HUD"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HealthbarUnder" type="TextureRect" parent="MarginContainer/InfoBar"]
+[node name="HealthbarUnder" type="TextureRect" parent="HUD/InfoBar"]
 layout_mode = 0
 offset_right = 348.0
 offset_bottom = 102.0
 texture = ExtResource("1_yseya")
 
-[node name="Healthbar" type="TextureProgressBar" parent="MarginContainer/InfoBar/HealthbarUnder"]
+[node name="Healthbar" type="TextureProgressBar" parent="HUD/InfoBar/HealthbarUnder"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -63,7 +141,7 @@ grow_vertical = 2
 value = 100.0
 texture_progress = ExtResource("3_co5mk")
 
-[node name="HealthLabel" type="Label" parent="MarginContainer/InfoBar/HealthbarUnder/Healthbar"]
+[node name="HealthLabel" type="Label" parent="HUD/InfoBar/HealthbarUnder/Healthbar"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 93.0
@@ -74,7 +152,7 @@ text = "100/100"
 label_settings = SubResource("LabelSettings_co5mk")
 vertical_alignment = 1
 
-[node name="XPBar" type="TextureProgressBar" parent="MarginContainer/InfoBar/HealthbarUnder"]
+[node name="XPBar" type="TextureProgressBar" parent="HUD/InfoBar/HealthbarUnder"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -85,13 +163,13 @@ grow_vertical = 2
 value = 100.0
 texture_progress = ExtResource("4_apued")
 
-[node name="HealthbarOver" type="TextureRect" parent="MarginContainer/InfoBar"]
+[node name="HealthbarOver" type="TextureRect" parent="HUD/InfoBar"]
 layout_mode = 0
 offset_right = 348.0
 offset_bottom = 102.0
 texture = ExtResource("2_te54r")
 
-[node name="LevelLabel" type="Label" parent="MarginContainer/InfoBar/HealthbarOver"]
+[node name="LevelLabel" type="Label" parent="HUD/InfoBar/HealthbarOver"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(95, 0)
 layout_mode = 1
@@ -104,6 +182,37 @@ label_settings = SubResource("LabelSettings_r6oiv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="InteractContainer" type="VBoxContainer" parent="HUD"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="InteractButtonLabel" type="Label" parent="HUD/InteractContainer"]
+layout_mode = 2
+text = "\"E\""
+label_settings = SubResource("LabelSettings_apued")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HUD/InteractContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_oh8mj")
+
+[node name="InteractLabel" type="Label" parent="HUD/InteractContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open Chest"
+label_settings = SubResource("LabelSettings_fsra1")
+horizontal_alignment = 1
+
 [node name="Inventory" parent="." instance=ExtResource("7_apued")]
 visible = false
 layout_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fsra1")
+}

@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://ogj867t1mlyj"]
+
+[ext_resource type="PackedScene" uid="uid://00cmdek5dugb" path="res://UserInterface/ItemIcon.tscn" id="1_du2eb"]
+[ext_resource type="Texture2D" uid="uid://cgi1nwa4d4gdc" path="res://Assets/UIAssets/Icons/shield_icon.png" id="2_7gxsx"]
+[ext_resource type="Script" uid="uid://c7oy5e83djn4k" path="res://UserInterface/ShieldIcon.gd" id="2_b0nm2"]
+[ext_resource type="PackedScene" uid="uid://btcmb1mpgfq83" path="res://Assets/3D_Assets/Character/Gear/Short_Shield.glb" id="3_b0nm2"]
+
+[node name="ShieldIcon" instance=ExtResource("1_du2eb")]
+script = ExtResource("2_b0nm2")
+protection = 0
+itemModel = ExtResource("3_b0nm2")
+
+[node name="TypeIcon" parent="." index="0"]
+texture = ExtResource("2_7gxsx")
