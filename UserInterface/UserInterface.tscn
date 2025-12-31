@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://dsanfoi6y78xx" path="res://Assets/Fonts/Libre_Caslon_Text/LibreCaslonText-Bold.ttf" id="3_te54r"]
 [ext_resource type="Texture2D" uid="uid://wjejsac74mq1" path="res://Assets/UIAssets/Unitframe/BlueBar.png" id="4_apued"]
 [ext_resource type="PackedScene" uid="uid://bq2eany5baslr" path="res://UserInterface/Inventory.tscn" id="7_apued"]
-[ext_resource type="PackedScene" uid="uid://r4jyv8acxa0w" path="res://UserInterface/LootContainer.tscn" id="8_oh8mj"]
+[ext_resource type="PackedScene" uid="uid://r4jyv8acxa0w" path="res://UserInterface/LootContainerMenu.tscn" id="8_oh8mj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_co5mk"]
 font = ExtResource("3_te54r")
@@ -219,5 +219,6 @@ libraries = {
 visible = false
 layout_mode = 1
 
-[node name="LootContainer" parent="." instance=ExtResource("8_oh8mj")]
+[node name="LootContainerMenu" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("8_oh8mj")]
 layout_mode = 1
+inventory = NodePath("../Inventory")

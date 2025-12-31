@@ -10,7 +10,7 @@ class_name UserInterface
 @onready var inventory: Inventory = $Inventory
 @onready var animationPlayer: AnimationPlayer = $HUD/InteractContainer/AnimationPlayer
 @onready var interactLabel: Label = %InteractLabel
-@onready var lootContainerMenu: LootContainerMenu = $LootContainer
+@onready var lootContainerMenu: LootContainerMenu = $LootContainerMenu
 
 
 func _unhandled_input(event: InputEvent) -> void:

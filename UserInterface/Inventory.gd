@@ -7,10 +7,15 @@ class_name Inventory
 @onready var speedValue: Label = %SpeedValue
 @onready var enduranceValue: Label = %EnduranceValue
 @onready var rig: Rig = $MarginContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport/Rig
-
+@onready var itemGrid: GridContainer = %ItemGrid
 @onready var attackValue: Label = %AttackValue
+@onready var goldLabel: Label = %GoldLabel
 
 @onready var player: Player = get_parent().player
+@onready var gold := 0:
+	set(value):
+		gold = value
+		goldLabel.text = str(gold) + "g"
 
 func _ready() -> void:
 	UpdateStats()
@@ -34,7 +39,13 @@ func GetWeaponValue() -> int:
 	var damage = player.baseDamage
 	damage += player.stats.GetDamageModifier()
 	return damage
+	
+func AddItem(itemIcon: ItemIcon) -> void:
+	itemIcon.get_parent().remove_child(itemIcon)
+	itemGrid.add_child(itemIcon)
 
+func AddCurrency(currencyIn: int) -> void:
+	gold += currencyIn
 
 func _on_back_button_pressed() -> void:
 	var parent: UserInterface = get_parent()
