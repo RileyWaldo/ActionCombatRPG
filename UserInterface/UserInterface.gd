@@ -8,8 +8,9 @@ class_name UserInterface
 @onready var xpBar: TextureProgressBar = %XPBar
 @onready var healthLabel: Label = %HealthLabel
 @onready var inventory: Inventory = $Inventory
-@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var animationPlayer: AnimationPlayer = $HUD/InteractContainer/AnimationPlayer
 @onready var interactLabel: Label = %InteractLabel
+@onready var lootContainerMenu: LootContainerMenu = $LootContainer
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -41,3 +42,6 @@ func InteractText(text: String) -> void:
 	animationPlayer.stop()
 	animationPlayer.play("FadeOutText")
 	interactLabel.text = text
+	
+func ToggleLootMenu() -> void:
+	lootContainerMenu.ToggleMenu()
