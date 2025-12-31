@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://r4jyv8acxa0w"]
+[gd_scene load_steps=10 format=3 uid="uid://r4jyv8acxa0w"]
 
 [ext_resource type="Script" uid="uid://ccs2qsdoe2das" path="res://UserInterface/LootContainer.gd" id="1_8b70b"]
 [ext_resource type="StyleBox" uid="uid://lw51350qh8ll" path="res://UserInterface/UIPanel.tres" id="1_apa8v"]
 [ext_resource type="Texture2D" uid="uid://dgfl7yg3f5dr8" path="res://Assets/UIAssets/Window/window_header.png" id="2_8b70b"]
 [ext_resource type="FontFile" uid="uid://dsanfoi6y78xx" path="res://Assets/Fonts/Libre_Caslon_Text/LibreCaslonText-Bold.ttf" id="3_n6rxb"]
-[ext_resource type="PackedScene" uid="uid://dkmcappeajjcr" path="res://UserInterface/ArmorIcon.tscn" id="4_wmub4"]
 [ext_resource type="Texture2D" uid="uid://c3cx4dxxdo1w2" path="res://Assets/UIAssets/Button Small/button_small.png" id="5_akiqy"]
 [ext_resource type="Texture2D" uid="uid://dsuuil1a6ql32" path="res://Assets/UIAssets/Button Small/button_small_press.png" id="6_fk62r"]
 [ext_resource type="Texture2D" uid="uid://og3uvrnijfrb" path="res://Assets/UIAssets/Button Small/button_small_hover.png" id="7_8fms5"]
@@ -45,6 +44,7 @@ expand_mode = 5
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/TitleTexture"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,33 +57,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(512, 256)
 layout_mode = 2
 columns = 4
-
-[node name="ArmorIcon" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon2" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon3" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon4" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon5" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon6" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon7" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
-
-[node name="ArmorIcon8" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource("4_wmub4")]
-layout_mode = 2
 
 [node name="CloseButton" type="TextureButton" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(200, 80)

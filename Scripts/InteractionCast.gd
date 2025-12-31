@@ -10,6 +10,5 @@ func CheckInteractions() -> void:
 			var chest when chest is LootContainer:
 				ui.InteractText("Open Chest")
 				if(Input.is_action_just_pressed("interact")):
-					print(chest.GetItems())
-					ui.ToggleLootMenu()
+					ui.ToggleLootMenu(chest)
 			

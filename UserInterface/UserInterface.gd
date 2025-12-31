@@ -43,5 +43,5 @@ func InteractText(text: String) -> void:
 	animationPlayer.play("FadeOutText")
 	interactLabel.text = text
 	
-func ToggleLootMenu() -> void:
-	lootContainerMenu.ToggleMenu()
+func ToggleLootMenu(loot: LootContainer) -> void:
+	lootContainerMenu.ToggleMenu(loot)
