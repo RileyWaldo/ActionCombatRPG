@@ -38,6 +38,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	stats.updateStats.connect(userInterface.UpdateStatsDisplay)
 	userInterface.UpdateStatsDisplay()
+	SceneTransition.FadeIn()
 
 func _physics_process(delta: float) -> void:
 	MoveCamera()

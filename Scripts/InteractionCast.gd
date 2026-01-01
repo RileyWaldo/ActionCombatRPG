@@ -11,4 +11,8 @@ func CheckInteractions() -> void:
 				ui.InteractText("Open Chest")
 				if(Input.is_action_just_pressed("interact")):
 					ui.ToggleLootMenu(chest)
+			var passage when passage is Passage:
+				ui.InteractText("Travel")
+				if(Input.is_action_just_pressed("interact")):
+					passage.Travel(ui.player)
 			

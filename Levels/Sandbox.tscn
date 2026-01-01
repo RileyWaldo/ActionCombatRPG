@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b43kpoqan3tb5"]
+[gd_scene load_steps=35 format=3 uid="uid://b43kpoqan3tb5"]
 
 [ext_resource type="PackedScene" uid="uid://cvvpsibti0lcp" path="res://GameObjects/Player.tscn" id="1_cm70w"]
 [ext_resource type="PackedScene" uid="uid://yqf0qt24pt6c" path="res://Assets/3D_Assets/Environment/Rock_Cliff_Env_03.glb" id="2_ecytd"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bmcjk66n58es" path="res://Assets/3D_Assets/Character/Gear/Battleaxe.glb" id="26_b8vww"]
 [ext_resource type="PackedScene" uid="uid://73prhdwjlbat" path="res://Assets/3D_Assets/Character/Gear/Broken_Sword.glb" id="26_ym1nw"]
 [ext_resource type="PackedScene" uid="uid://ogj867t1mlyj" path="res://UserInterface/ShieldIcon.tscn" id="27_b8vww"]
+[ext_resource type="PackedScene" uid="uid://c8y0m02q0doow" path="res://GameObjects/Passage.tscn" id="29_awj1u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2bpwj"]
 sky_top_color = Color(0.11549999, 0.30378336, 0.55, 1)
@@ -375,3 +376,7 @@ itemModel = ExtResource("26_ym1nw")
 visible = false
 power = 20
 itemModel = ExtResource("26_b8vww")
+
+[node name="Passage" parent="NavigationRegion3D/Interactibles" instance=ExtResource("29_awj1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -24)
+nextLevel = "uid://b43kpoqan3tb5"
