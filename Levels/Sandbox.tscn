@@ -351,6 +351,7 @@ power = 15
 itemModel = ExtResource("26_b8vww")
 
 [node name="WeaponIcon2" parent="NavigationRegion3D/Interactibles/Chest" instance=ExtResource("25_sjbf4")]
+visible = false
 power = 12
 
 [node name="Chest2" parent="NavigationRegion3D/Interactibles" instance=ExtResource("22_noaln")]
@@ -363,3 +364,8 @@ value = 60
 [node name="WeaponIcon" parent="NavigationRegion3D/Interactibles/Chest2" instance=ExtResource("25_sjbf4")]
 visible = false
 itemModel = ExtResource("26_ym1nw")
+
+[node name="WeaponIcon2" parent="NavigationRegion3D/Interactibles/Chest2" instance=ExtResource("25_sjbf4")]
+visible = false
+power = 20
+itemModel = ExtResource("26_b8vww")
