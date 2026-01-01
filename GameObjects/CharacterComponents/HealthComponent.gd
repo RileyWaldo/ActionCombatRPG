@@ -6,6 +6,7 @@ signal healthChanged
 
 @export var body: PhysicsBody3D
 
+var armorRating := 0.0
 var maxHealth: float
 var health: float:
 	set(value):
@@ -26,8 +27,14 @@ func TakeDamage(damage: float, isCrit: bool) -> void:
 	if(isCrit):
 		color = Color.RED
 		damage *= 2
+	
+	var damageBlocked := damage * (armorRating / 100.0)
+	damage -= damageBlocked
 	health -= damage
 	VfxManager.SpawnDamageNumber(damage, color, body.global_position)
 	
 func IsDead() -> bool:
 	return is_zero_approx(health)
+
+func UpdateArmorValue(armorIn: float) -> void:
+	armorRating = armorIn

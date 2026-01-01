@@ -20,6 +20,8 @@ var runWeightTarget := -1.0
 @onready var skeleton: Skeleton3D = $CharacterRig/GameRig/Skeleton3D
 @onready var weaponSlot: Node3D = %WeaponSlot
 @onready var shieldSlot: Node3D = %ShieldSlot
+@onready var knightSteel: MeshInstance3D = $CharacterRig/GameRig/Skeleton3D/Knight_01
+@onready var knightIron: MeshInstance3D = $CharacterRig/GameRig/Skeleton3D/Knight_02
 
 func _physics_process(delta: float) -> void:
 	animationTree[runPath] = move_toward(animationTree[runPath], runWeightTarget, delta * animationSpeed)
@@ -64,6 +66,15 @@ func ReplaceWeapon(weaponScene: PackedScene) -> void:
 		
 	var newWeapon := weaponScene.instantiate()
 	weaponSlot.add_child(newWeapon)
+
+func ReplaceArmor(armorType: ArmorIcon.armorType) -> void:
+	match armorType:
+		ArmorIcon.armorType.IRON_PLATE:
+			SetRigCharacterMesh(knightIron)
+		ArmorIcon.armorType.STEEL_PLATE:
+			SetRigCharacterMesh(knightSteel)
+		_:
+			printerr("Armor type invalid. ID: %s" % armorType)
 
 func _on_animation_tree_animation_finished(animName: StringName) -> void:
 	if(animName == OVERHEAD):

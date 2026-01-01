@@ -34,6 +34,7 @@ var moveSpeed: float:
 func _ready() -> void:
 	stats.levelUpNotification.connect(func(): healthComponent.UpdateMaxHealth(stats.GetMaxHP()))
 	healthComponent.UpdateMaxHealth(stats.GetMaxHP())
+	userInterface.inventory.armorChanged.connect(healthComponent.UpdateArmorValue)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	stats.updateStats.connect(userInterface.UpdateStatsDisplay)
 	userInterface.UpdateStatsDisplay()
@@ -117,7 +118,7 @@ func HandleSlashingPhysicsFrame(delta: float) -> void:
 	velocity.x = attackDirection.x * attackMoveSpeed
 	velocity.z = attackDirection.z * attackMoveSpeed
 	LookTowardDirection(attackDirection, delta)
-	attackCast.DealDamage(baseDamage + stats.GetDamageModifier(), stats.GetCritChance())
+	attackCast.DealDamage(userInterface.inventory.GetWeaponValue(), stats.GetCritChance())
 	
 func HandleOverheadPhysicsFrame(delta: float) -> void:
 	if(!rig.IsOverhead()):
@@ -153,7 +154,7 @@ func OnDefeat() -> void:
 
 
 func OnHeavyAttack() -> void:
-	areaAttack.DealDamage(baseDamage + stats.GetDamageModifier(), stats.GetCritChance())
+	areaAttack.DealDamage(userInterface.inventory.GetWeaponValue(), stats.GetCritChance())
 
 func ExponentialDecay(a: float, b: float, decay: float, delta: float) -> float:
 	return b + (a - b) * exp(-decay * delta)

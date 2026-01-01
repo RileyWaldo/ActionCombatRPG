@@ -1,7 +1,7 @@
 extends ItemIcon
 class_name ArmorIcon
 
-@export var power: int
+@export var protection: int
 @export var armor: armorType
 
 enum armorType {
@@ -10,5 +10,5 @@ enum armorType {
 }
 
 func _ready() -> void:
-	statLabel.text = "+" + str(power)
+	statLabel.text = "+" + str(protection)
 	nameLabel.text = armorType.keys()[armor].capitalize()
