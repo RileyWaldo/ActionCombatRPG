@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b43kpoqan3tb5"]
+[gd_scene load_steps=33 format=3 uid="uid://b43kpoqan3tb5"]
 
 [ext_resource type="PackedScene" uid="uid://cvvpsibti0lcp" path="res://GameObjects/Player.tscn" id="1_cm70w"]
 [ext_resource type="PackedScene" uid="uid://yqf0qt24pt6c" path="res://Assets/3D_Assets/Environment/Rock_Cliff_Env_03.glb" id="2_ecytd"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://dcyq3fjl0nevl" path="res://UserInterface/CurrencyIcon.tscn" id="23_r2aqj"]
 [ext_resource type="PackedScene" uid="uid://dkmcappeajjcr" path="res://UserInterface/ArmorIcon.tscn" id="24_cskxi"]
 [ext_resource type="PackedScene" uid="uid://de2wyxtvp6adv" path="res://UserInterface/WeaponIcon.tscn" id="25_sjbf4"]
+[ext_resource type="PackedScene" uid="uid://bmcjk66n58es" path="res://Assets/3D_Assets/Character/Gear/Battleaxe.glb" id="26_b8vww"]
 [ext_resource type="PackedScene" uid="uid://73prhdwjlbat" path="res://Assets/3D_Assets/Character/Gear/Broken_Sword.glb" id="26_ym1nw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2bpwj"]
@@ -343,6 +344,14 @@ value = 53
 [node name="ArmorIcon" parent="NavigationRegion3D/Interactibles/Chest" instance=ExtResource("24_cskxi")]
 visible = false
 power = 10
+
+[node name="WeaponIcon" parent="NavigationRegion3D/Interactibles/Chest" instance=ExtResource("25_sjbf4")]
+visible = false
+power = 15
+itemModel = ExtResource("26_b8vww")
+
+[node name="WeaponIcon2" parent="NavigationRegion3D/Interactibles/Chest" instance=ExtResource("25_sjbf4")]
+power = 12
 
 [node name="Chest2" parent="NavigationRegion3D/Interactibles" instance=ExtResource("22_noaln")]
 transform = Transform3D(0.23470101, 0, 0.9720676, 0, 1, 0, -0.9720676, 0, 0.23470101, 19.848988, 0.0028758282, -20.416628)

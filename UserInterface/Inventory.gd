@@ -10,6 +10,9 @@ class_name Inventory
 @onready var itemGrid: GridContainer = %ItemGrid
 @onready var attackValue: Label = %AttackValue
 @onready var goldLabel: Label = %GoldLabel
+@onready var weaponSlot: CenterContainer = %WeaponSlot
+@onready var shieldSlot: CenterContainer = %ShieldSlot
+@onready var armorSlot: CenterContainer = %ArmorSlot
 
 @onready var player: Player = get_parent().player
 @onready var gold := 0:
@@ -41,11 +44,29 @@ func GetWeaponValue() -> int:
 	return damage
 	
 func AddItem(itemIcon: ItemIcon) -> void:
+	for connection in itemIcon.interact.get_connections():
+		itemIcon.interact.disconnect(connection.callable)
+	
 	itemIcon.get_parent().remove_child(itemIcon)
 	itemGrid.add_child(itemIcon)
+	itemIcon.interact.connect(Interact)
 
 func AddCurrency(currencyIn: int) -> void:
 	gold += currencyIn
+	
+func EquipItem(item: ItemIcon, itemSlot: CenterContainer) -> void:
+	for child in itemSlot.get_children():
+		AddItem(child)
+		
+	item.get_parent().remove_child(item)
+	itemSlot.add_child(item)
+	
+func Interact(item: ItemIcon) -> void:
+	match item:
+		var weapon when weapon is WeaponIcon:
+			EquipItem(weapon, weaponSlot)
+			
+	UpdateGearStats()
 
 func _on_back_button_pressed() -> void:
 	var parent: UserInterface = get_parent()
