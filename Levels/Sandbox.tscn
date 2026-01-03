@@ -379,4 +379,4 @@ itemModel = ExtResource("26_b8vww")
 
 [node name="Passage" parent="NavigationRegion3D/Interactibles" instance=ExtResource("29_awj1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -24)
-nextLevel = "uid://b43kpoqan3tb5"
+nextLevel = "uid://bt1outkhvnyj"
