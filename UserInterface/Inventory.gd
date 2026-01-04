@@ -28,6 +28,7 @@ signal armorChanged(protection: float)
 
 func _ready() -> void:
 	UpdateStats()
+	LoadInventoryFromPersistentData()
 	
 func _process(delta: float) -> void:
 	var inputVector := Input.get_vector("moveLeft", "moveRight", "moveBackward", "moveForward")
@@ -117,6 +118,14 @@ func GetArmor() -> ArmorIcon:
 		return null
 	
 	return armorSlot.get_child(0)
+
+func LoadInventoryFromPersistentData() -> void:
+	gold = PersistentData.gold
+	for item in PersistentData.GetInventory():
+		AddItem(item)
+	for item in PersistentData.GetEquippedItems():
+		AddItem(item)
+		Interact(item)
 
 func _on_back_button_pressed() -> void:
 	var parent: UserInterface = get_parent()

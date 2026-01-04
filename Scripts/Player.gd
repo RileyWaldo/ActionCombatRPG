@@ -39,6 +39,8 @@ func _ready() -> void:
 	stats.updateStats.connect(userInterface.UpdateStatsDisplay)
 	userInterface.UpdateStatsDisplay()
 	SceneTransition.FadeIn()
+	if(PersistentData.playerHealth):
+		healthComponent.health = PersistentData.playerHealth
 
 func _physics_process(delta: float) -> void:
 	MoveCamera()

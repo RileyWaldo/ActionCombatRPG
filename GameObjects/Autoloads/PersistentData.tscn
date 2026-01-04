@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://b80xotpjn4i2x"]
+
+[ext_resource type="Script" uid="uid://c3d2sv7sp66ce" path="res://GameObjects/Autoloads/PersistentData.gd" id="1_v4oto"]
+[ext_resource type="PackedScene" uid="uid://de2wyxtvp6adv" path="res://UserInterface/WeaponIcon.tscn" id="2_121r3"]
+[ext_resource type="PackedScene" uid="uid://73prhdwjlbat" path="res://Assets/3D_Assets/Character/Gear/Broken_Sword.glb" id="3_8p67d"]
+[ext_resource type="PackedScene" uid="uid://ogj867t1mlyj" path="res://UserInterface/ShieldIcon.tscn" id="4_qpy30"]
+[ext_resource type="PackedScene" uid="uid://dkmcappeajjcr" path="res://UserInterface/ArmorIcon.tscn" id="5_nn050"]
+
+[node name="PersistentData" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_v4oto")
+
+[node name="InventoryNodes" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="WeaponNode" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="WeaponIcon" parent="WeaponNode" instance=ExtResource("2_121r3")]
+layout_mode = 0
+power = 5
+itemModel = ExtResource("3_8p67d")
+
+[node name="ShieldNode" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="ShieldIcon" parent="ShieldNode" instance=ExtResource("4_qpy30")]
+layout_mode = 0
+protection = 4
+
+[node name="ArmorNode" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="ArmorIcon" parent="ArmorNode" instance=ExtResource("5_nn050")]
+layout_mode = 0
+protection = 5
